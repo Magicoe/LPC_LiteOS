@@ -39,7 +39,7 @@ const unsigned int tick_per_second = 1000;
 static unsigned int g_ucycle_per_tick = 0;
 
 /*
-    if g_use_ram_vect == 1, we should use sct file STM32F429I-LiteOS.sct
+    if g_use_ram_vect == 1, we should use sct file LPC5411x-LiteOS.sct
     and we can use LOS_HwiCreate(), LOS_HwiDelete() dynamically regist a irq func
     if g_use_ram_vect == 0, we use default vector table in rom start at address 0x00000000
 */
@@ -75,7 +75,7 @@ unsigned int osTickStart(void)
     /* 
       Set system tick relaod register valude, current register valude and start
       system tick exception.
-      Note: here can be replaced by some function , for example in Stm32 bsp
+      Note: here can be replaced by some function , for example in LPC5411x bsp
       you can just call SysTick_Config(sys_clk_freq/tick_per_second);
     */
 #ifdef LOS_LPC54114
@@ -126,7 +126,7 @@ void LosAdapIntInit(void)
         located in rom 0x00000000
         2:set nvic irq priority group
         
-        Note: here can be replaced by some function , for example in Stm32 bsp
+        Note: here can be replaced by some function , for example in LPC5411x bsp
         you can just call SCB->VTOR = osGetVectorAddr(); and
         NVIC_SetPriorityGrouping(OS_NVIC_AIRCR_PRIGROUP);
     */
@@ -153,12 +153,12 @@ void LosAdapIntInit(void)
 void LosAdapIrqEnable(unsigned int irqnum, unsigned short prior)
 {
     /*
-        enable irq , for example in stm32 bsp you can use
+        enable irq , for example in LPC5411x bsp you can use
         NVIC_EnableIRQ((IRQn_Type)irqnum);
     */
     nvicSetIRQ(irqnum);
     /*
-        set irq priority , for example in stm32 bsp you can use
+        set irq priority , for example in LPC5411x bsp you can use
         NVIC_SetPriority((IRQn_Type)irqnum, prior);
     */
     nvicSetIrqPRI(irqnum, prior << 4);
@@ -178,7 +178,7 @@ void LosAdapIrqEnable(unsigned int irqnum, unsigned short prior)
 void LosAdapIrqDisable(unsigned int irqnum)
 {
     /*
-        disable irq, for example in stm32 bsp you can use 
+        disable irq, for example in LPC5411x bsp you can use 
         NVIC_DisableIRQ((IRQn_Type)irqnum);
     */
     nvicClrIRQ(irqnum);
