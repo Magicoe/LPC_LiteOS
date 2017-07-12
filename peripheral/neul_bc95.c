@@ -4,9 +4,7 @@
 */
 
 /*
-    Copyright (C) 2016 NXP
 
-    2017-7-11, V1.0.0, demo for LPC54102
 */
 #include <string.h>
 
